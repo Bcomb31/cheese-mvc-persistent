@@ -16,7 +16,7 @@ public class Cheese {
     private int id;
 
     @NotNull
-    @Size(min=3, max=20)
+    @Size(min=3, max=15)
     private String name;
 
     @NotNull
@@ -68,4 +68,6 @@ public class Cheese {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public List<Menu> getMenus() { return menus; }
 }

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Id;
 import javax.validation.Valid;
 
 /**
@@ -38,20 +39,17 @@ public class CheeseController {
 
     }
 
-    @RequestMapping(value = "category/{categoryId}", method = RequestMethod.GET)
-    public String category(Model model, @PathVariable int categoryId){
-        Category category = categoryDao.findOne(categoryId);
+    @RequestMapping(value = "category/{cheeseId}", method = RequestMethod.GET)
+    public String category(Model model, @PathVariable int cheeseId) {
 
-        if (category != null) {
-            model.addAttribute("title", String.format("Cheeses in Category: %s", category.getName()));
-            model.addAttribute("cheeses", category.getCheeses());
-            return "cheese/index";
-        }
-        else{
-            return "redirect:/category";
+        Category category=categoryDao.findOne(cheeseId);
+        model.addAttribute("title", "Cheeses in Category: " +  category.getName());
+        model.addAttribute("cheeses", category.getCheeses());
+        model.addAttribute("cheeseId", category.getId());
+
+        return "cheese/index";
         }
 
-    }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddCheeseForm(Model model) {
